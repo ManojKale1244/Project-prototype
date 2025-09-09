@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krushi App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-green: #388E3C;
+      --secondary-green: #8BC34A;
+      --light-green: #E8F5E9;
+      --text-dark: #333;
+      --text-light: #fff;
+      --bg-light: #f4f6f9;
+      --card-bg: #fff;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .phone {
+      width: 380px;
+      height: 700px;
+      background: var(--card-bg);
+      border-radius: 35px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    header {
+      background: var(--primary-green);
+      color: var(--text-light);
+      text-align: center;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: background 0.3s ease-in-out;
+    }
+    header .menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+        padding-left: 10px;
+    }
+    header .app-title {
+        flex-grow: 1;
+        text-align: center;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .logo {
+      font-size: 50px;
+      margin: 20px 0;
+      color: var(--primary-green);
+    }
+    .btn {
+      display: block;
+      width: 90%;
+      margin: 15px auto;
+      padding: 15px;
+      background: var(--primary-green);
+      color: var(--text-light);
+      font-size: 17px;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn:hover {
+      background: #2E7D32;
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: var(--secondary-green);
+    }
+    .btn-secondary:hover {
+      background: #7CB342;
+    }
+    .btn-icon {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 25px;
+    }
+    .option-box {
+      background: var(--light-green);
+      padding: 25px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      color: var(--text-dark);
+    }
+    .option-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .option-box i {
+      font-size: 36px;
+      color: var(--primary-green);
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 15px 0;
+      text-align: left;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      color: var(--text-dark);
+    }
+    .card h4 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        color: var(--primary-green);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 15px 0;
+      border-top: 1px solid #eee;
+      background: var(--card-bg);
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+      position: relative;
+      z-index: 5;
+    }
+    .nav button {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.3s;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav button i {
+        font-size: 22px;
+    }
+    .nav button:hover, .nav button.active {
+      color: var(--primary-green);
+    }
+    .scanner-btn {
+        background: var(--primary-green);
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        color: white;
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        border: 4px solid white;
+        animation: pulse 2s infinite;
+        z-index: 10;
+        transform: translateY(-20px);
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(56, 142, 60, 0.5); }
+      70% { box-shadow: 0 0 0 20px rgba(56, 142, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(56, 142, 60, 0); }
+    }
+    .section-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--primary-green);
+        margin-bottom: 20px;
+    }
+    .search-bar {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 30px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .simple-mode-toggle {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #666;
+        text-align: center;
+    }
+    .speech-bubble {
+        background: var(--light-green);
+        color: var(--primary-green);
+        padding: 15px;
+        border-radius: 20px;
+        position: relative;
+        margin-top: 20px;
+        text-align: center;
+        animation: fadeIn 0.5s;
+        font-weight: 500;
+    }
+    .speech-bubble::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid var(--light-green);
+    }
+    .proximity-banner {
+        background: #DCEDC8;
+        padding: 15px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        color: #33691E;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .proximity-banner span {
+        display: block;
+        font-size: 18px;
+        font-weight: 700;
+        margin-top: 5px;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Sidebar styles */
+    .sidebar {
+        height: 100%;
+        width: 0;
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        background-color: var(--card-bg);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.1);
+    }
+    .sidebar a {
+        padding: 15px 25px;
+        text-decoration: none;
+        font-size: 18px;
+        color: var(--text-dark);
+        display: block;
+        transition: 0.3s;
+        font-weight: 600;
+    }
+    .sidebar a:hover {
+        background-color: var(--light-green);
+        color: var(--primary-green);
+    }
+    .sidebar .closebtn {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    .sidebar-header {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+    }
+    .sidebar-header h3 {
+        margin: 0;
+        color: var(--primary-green);
+    }
+
+    /* Scanner View styles */
+    .scanner-view {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        color: white;
+        text-align: center;
+    }
+    .scanner-camera-feed {
+        width: 100%;
+        height: 100%;
+        background-color: #222; /* Placeholder for camera feed */
+        position: relative;
+    }
+    .scanner-window {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 400px;
+        border: 3px solid var(--secondary-green);
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(139, 195, 74, 0.5);
+        overflow: hidden;
+    }
+    .scanner-line {
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, transparent, var(--secondary-green), transparent);
+        animation: scan-line 2s linear infinite;
+        position: absolute;
+        top: 0;
+    }
+    .shutter-btn {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 5px solid var(--primary-green);
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    @keyframes scan-line {
+        0% { top: 0; }
+        100% { top: 100%; }
+    }
+    
+    /* Scan Result styles */
+    .scan-result-section {
+        margin-bottom: 25px;
+        text-align: left;
+    }
+    .scan-result-section h4 {
+        color: var(--primary-green);
+        font-size: 18px;
+        margin-bottom: 10px;
+        border-bottom: 2px solid var(--light-green);
+        padding-bottom: 5px;
+    }
+    
+    /* Simple Mode button grid */
+    .simple-mode-options {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .simple-mode-options .btn {
+        margin: 0 auto;
+        width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone">
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="sidebar-header">
+            <i class="fa-solid fa-seedling" style="font-size: 30px;"></i>
+            <h3>Krushi App</h3>
+        </div>
+        <a href="#" onclick="showHome()"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#" onclick="showLogin()"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        <a href="#" onclick="showFarmer()"><i class="fa-solid fa-user-tie"></i> Farmer Dashboard</a>
+        <a href="#" onclick="showDoctor()"><i class="fa-solid fa-stethoscope"></i> Doctor Dashboard</a>
+        <a href="#" onclick="showCommunity()"><i class="fa-solid fa-users"></i> Community</a>
+        <a href="#" onclick="showCropGuides()"><i class="fa-solid fa-book-open"></i> Crop Guides</a>
+        <a href="#" onclick="showMarketplace()"><i class="fa-solid fa-store"></i> Marketplace</a>
+    </div>
+
+    <header id="title">
+        <span class="menu-icon" onclick="openNav()">&#9776;</span>
+        <div class="app-title">Krushi App</div>
+    </header>
+    <div class="content" id="screen">
+
+      <div id="overview">
+        <div class="logo">🌾</div>
+        <h2>Welcome to Krushi App</h2>
+        <p>Your one-stop solution for smart farming. Scan crops, detect diseases, and connect with experts.</p>
+        <button class="btn" onclick="showHome()">Get Started</button>
+      </div>
+
+      <div id="home" style="display:none;">
+        <div class="proximity-banner">
+            <div>
+                Farmers Online<br>
+                <span>2</span>
+            </div>
+            <div>
+                Doctors Online<br>
+                <span>2</span>
+            </div>
+            <div>
+                Range<br>
+                <span>5 km</span>
+            </div>
+        </div>
+        <input type="text" placeholder="🔍 Search for crops or solutions..." class="search-bar">
+        
+        <div class="options">
+          <div class="option-box" onclick="showCropGuides()">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Crop Guides</span>
+          </div>
+          <div class="option-box" onclick="showMarketplace()">
+            <i class="fa-solid fa-store"></i>
+            <span>Marketplace</span>
+          </div>
+          <div class="option-box" onclick="showCommunity()">
+            <i class="fa-solid fa-users"></i>
+            <span>Community</span>
+          </div>
+          <div class="option-box" onclick="showAgriNews()">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>Agri-News</span>
+          </div>
+        </div>
+        <button class="btn" onclick="showSimpleMode()">Simple Mode (Voice)</button>
+      </div>
+      
+      <div id="simpleMode" style="display:none;">
+          <div class="section-title">Simple Mode Activated</div>
+          <div class="speech-bubble">
+              <i class="fa-solid fa-volume-high"></i>
+              <p>Welcome, I am your guide. What would you like to do?</p>
+          </div>
+          <div class="simple-mode-options">
+              <button class="btn" onclick="showScanner(); speak('Okay. Please hold the phone steady to scan your crop.');">Scan Crop</button>
+              <button class="btn" onclick="speak('Searching for nearby doctors.');">Talk to Doctor</button>
+              <button class="btn" onclick="speak('Today\'s weather is sunny with a temperature of 28 degrees Celsius.');">Check Weather</button>
+              <button class="btn" onclick="showHome(); speak('Simple mode is now off.');">Exit Simple Mode</button>
+          </div>
+      </div>
+
+      <div id="login" style="display:none;">
+        <div class="section-title">Login As</div>
+        <button class="btn" onclick="showFarmer()"><i class="fa-solid fa-user-tie btn-icon"></i>Farmer</button>
+        <button class="btn btn-secondary" onclick="showDoctor()"><i class="fa-solid fa-stethoscope btn-icon"></i>Agri Doctor</button>
+        <button class="btn" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back to Home</button>
+      </div>
+
+      <div id="farmer" style="display:none;">
+        <div class="section-title">Farmer Dashboard</div>
+        <div class="proximity-banner">
+            <div>
+                My nearby Experts:<br>
+                <span>2 Doctors within 5 km</span>
+            </div>
+        </div>
+        <div class="card">
+          <h4>Latest Scan:</h4>
+          <p><strong>Detected:</strong> Leaf Spot on Wheat</p>
+          <p><strong>Suggestion:</strong> Apply a copper-based fungicide. Consult nearby doctor for dosage.</p>
+        </div>
+        <button class="btn"><i class="fa-solid fa-headset btn-icon"></i>Contact Expert</button>
+        <button class="btn btn-secondary" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back</button>
+      </div>
+
+      <div id="doctor" style="display:none;">
+        <div class="section-title">Doctor Dashboard</div>
+        <div class="proximity-banner">
+            <div>
+                Farmers Online:<br>
+                <span>2 within 5 km</span>
+            </div>
+        </div>
+        <div class="card">
+          <h4>New Consultation Request:</h4>
+          <p><strong>Farmer:</strong> Ramesh, Vill. Bori (3 km)</p>
+          <p><strong>Problem:</strong> Cotton pest infestation.</p>
+          <button class="btn">Accept</button>
+        </div>
+        <button class="btn" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back</button>
+      </div>
+
+      <div id="community" style="display:none;">
+        <div class="section-title">Farmer Community</div>
+        <div class="card">
+          <h4>🌾 Ramesh:</h4>
+          <p>My tomato leaves are turning yellow. Any tips?</p>
+          <small>2 replies</small>
+        </div>
+        <div class="card">
+          <h4>👩‍🌾 Sita:</h4>
+          <p>Neem spray worked for me! You can try mixing 10ml in 1 liter of water.</p>
+          <small>5 likes</small>
+        </div>
+        <button class="btn"><i class="fa-solid fa-plus btn-icon"></i>Post New Question</button>
+        <button class="btn btn-secondary" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back</button>
+      </div>
+
+      <div id="scanResult" style="display:none;">
+        <div class="section-title">Scan Results</div>
+        <div class="card">
+            <div class="scan-result-section">
+                <h4><i class="fa-solid fa-seedling"></i> Identified Disease</h4>
+                <p><strong>Tomato Leaf Curl Virus (ToLCV)</strong></p>
+                <p>This is a major viral disease affecting tomato plants, transmitted by whiteflies.</p>
+            </div>
+            <div class="scan-result-section">
+                <h4><i class="fa-solid fa-spray-can"></i> Recommended Pesticides</h4>
+                <ul>
+                    <li>Neem Oil-based sprays</li>
+                    <li>Acetamiprid-based insecticides</li>
+                    <li>Spiromesifen for whitefly control</li>
+                </ul>
+                <a href="#" class="btn btn-secondary" style="width:100%;" onclick="showMarketplace()">Buy Now from Marketplace</a>
+            </div>
+            <div class="scan-result-section">
+                <h4><i class="fa-solid fa-shield-halved"></i> How to Prevent It</h4>
+                <ul>
+                    <li>Use virus-free seeds and seedlings.</li>
+                    <li>Control the whitefly population using neem oil or insecticidal soap.</li>
+                    <li>Remove and destroy infected plants immediately to prevent spread.</li>
+                </ul>
+            </div>
+            <div class="scan-result-section">
+                <h4><i class="fa-solid fa-bug-slash"></i> Why This Happens</h4>
+                <p>The virus is spread by a tiny insect called the **whitefly**. When a whitefly feeds on an infected plant and then moves to a healthy one, it transfers the virus. High temperatures and dry weather can increase whitefly activity.</p>
+            </div>
+            <div class="scan-result-section">
+                <h4><i class="fa-solid fa-user-doctor"></i> Connect with a Doctor</h4>
+                <p>Get expert advice from a professional nearby.</p>
+                <div class="card" style="padding:10px;">
+                    <strong>Dr. Patil</strong> (Agri Specialist)<br>
+                    Distance: <strong>1.5 km</strong><br>
+                    <a href="tel:+919876543210" class="btn btn-secondary" style="width:100%; margin:10px 0 0;">Call Now</a>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-secondary" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back to Home</button>
+      </div>
+
+      <div id="cropGuides" style="display:none;">
+        <div class="section-title">🌾 Crop Guides</div>
+        <input type="text" placeholder="Search guides..." class="search-bar">
+        <div class="card">
+            <h4>Tomato Cultivation</h4>
+            <p>A comprehensive guide on soil, planting, and pest management for tomatoes.</p>
+        </div>
+        <div class="card">
+            <h4>Wheat Harvesting</h4>
+            <p>Learn the best practices and modern techniques for a high-yield wheat harvest.</p>
+        </div>
+        <button class="btn" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back</button>
+      </div>
+
+      <div id="marketplace" style="display:none;">
+        <div class="section-title">🛍️ Marketplace</div>
+        <div class="card">
+            <h4>Fertilizer: Bio-Grow Organic</h4>
+            <p><strong>Price:</strong> ₹500/kg</p>
+            <button class="btn">Buy Now</button>
+        </div>
+        <div class="card">
+            <h4>Pest Spray: Neem Oil</h4>
+            <p><strong>Price:</strong> ₹250/bottle</p>
+            <button class="btn">Buy Now</button>
+        </div>
+        <button class="btn" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back</button>
+      </div>
+
+      <div id="agriNews" style="display:none;">
+        <div class="section-title">📰 Agri-News</div>
+        <div class="card news-card">
+            <h5>Govt. announces new subsidy for farmers.</h5>
+            <p>The government today launched a new scheme...</p>
+        </div>
+        <div class="card news-card">
+            <h5>Monsoon forecast: Heavy rains expected in South.</h5>
+            <p>Farmers in the region are advised to prepare...</p>
+        </div>
+        <button class="btn" onclick="showHome()"><i class="fa-solid fa-arrow-left btn-icon"></i>Back</button>
+      </div>
+    </div>
+
+    <div id="scanner" class="scanner-view" style="display:none;">
+        <div class="scanner-camera-feed">
+            <div class="scanner-window">
+                <div class="scanner-line"></div>
+            </div>
+        </div>
+        <button class="shutter-btn" onclick="simulateScan()">
+            <i class="fa-solid fa-camera" style="color:var(--primary-green);"></i>
+        </button>
+    </div>
+
+    <div class="nav">
+      <button onclick="showHome()" id="navHome" class="active">
+          <i class="fa-solid fa-house"></i>Home
+      </button>
+      <button onclick="showFarmer()" id="navFarmer">
+          <i class="fa-solid fa-user-tie"></i>Farmer
+      </button>
+      <div class="scanner-btn" onclick="showScanner()">
+          <i class="fa fa-camera"></i>
+      </div>
+      <button onclick="showCommunity()" id="navCommunity">
+          <i class="fa-solid fa-users"></i>Community
+      </button>
+      <button onclick="showDoctor()" id="navDoctor">
+          <i class="fa-solid fa-stethoscope"></i>Doctor
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let simpleMode = false;
+    const synth = window.speechSynthesis;
+
+    function hideAll() {
+      document.querySelectorAll("#screen > div").forEach(div => div.style.display = "none");
+    }
+    
+    function speak(text) {
+        if (!synth) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-IN';
+        synth.speak(utterance);
+    }
+    
+    function showScreen(id, titleText) {
+        hideAll();
+        document.getElementById(id).style.display = "block";
+        document.querySelector('.app-title').innerText = titleText;
+    }
+    
+    function openNav() {
+        document.getElementById("sidebar").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+    }
+
+    function showHome() { 
+        showScreen('home', 'Krushi App'); 
+        document.getElementById('scanner').style.display = 'none';
+        closeNav();
+    }
+    function showLogin() { showScreen('login', 'Login'); closeNav(); }
+    function showFarmer() { showScreen('farmer', 'Farmer Dashboard'); closeNav(); }
+    function showDoctor() { showScreen('doctor', 'Doctor Dashboard'); closeNav(); }
+    function showCommunity() { showScreen('community', 'Community'); closeNav(); }
+    function showCropGuides() { showScreen('cropGuides', 'Crop Guides'); closeNav(); }
+    function showMarketplace() { showScreen('marketplace', 'Marketplace'); closeNav(); }
+    function showAgriNews() { showScreen('agriNews', 'Agri-News'); closeNav(); }
+
+    function showSimpleMode() { 
+        simpleMode = true;
+        showScreen('simpleMode', 'Simple Mode');
+        closeNav();
+        speak("Welcome, I am your guide. What would you like to do?");
+    }
+    
+    function showScanner() {
+        hideAll();
+        document.getElementById('scanner').style.display = 'flex';
+        document.querySelector('.app-title').innerText = 'Crop Scanner';
+        closeNav();
+    }
+
+    function simulateScan() {
+        // Simulate scanning process
+        const shutterBtn = document.querySelector('.shutter-btn');
+        shutterBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="color:var(--primary-green);"></i>';
+        
+        if (simpleMode) {
+            speak("Scanning complete. Analyzing the image. This might take a few seconds.");
+        }
+
+        setTimeout(() => {
+            // Hide the scanner and show the results
+            document.getElementById('scanner').style.display = 'none';
+            showScreen('scanResult', 'Scan Results');
+            if (simpleMode) {
+                speak("Scan results are ready. We have identified a disease. Would you like to know more about it, or connect with a doctor?");
+            }
+        }, 3000); // 3-second delay
+    }
+
+    // Initial load
+    document.addEventListener('DOMContentLoaded', () => {
+        showScreen('overview', 'Krushi App');
+    });
+
+  </script>
+
+</body>
+</html>
