@@ -55,7 +55,7 @@
     }
 
     function simulateScan() {
-        // Simulate scanning process
+      
         const shutterBtn = document.querySelector('.shutter-btn');
         shutterBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="color:var(--primary-green);"></i>';
         
@@ -64,7 +64,7 @@
         }
 
         setTimeout(() => {
-            // Hide the scanner and show the results
+        
             document.getElementById('scanner').style.display = 'none';
             showScreen('scanResult', 'Scan Results');
             if (simpleMode) {
