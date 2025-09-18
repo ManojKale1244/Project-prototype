@@ -1,4 +1,4 @@
-<script src="App.js">
+
     let simpleMode = false;
     const synth = window.speechSynthesis;
 
@@ -78,4 +78,4 @@
         showScreen('overview', 'Krushi App');
     });
 
-  </script>
+
